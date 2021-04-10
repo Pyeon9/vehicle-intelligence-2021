@@ -24,7 +24,7 @@ def policy(grid, goal, cost):
     value = np.full(grid.shape, 99, dtype=np.int32)
     policy = np.full(grid.shape, ' ')
     change = True
-
+    
     while change:
         change = False
         for x in range(grid.shape[1]):
@@ -40,6 +40,7 @@ def policy(grid, goal, cost):
                             and 0 <= x2 < grid.shape[1] \
                             and grid[(y2, x2)] == 0:
                             v2 = value[(y2, x2)] + cost
+                            
                             if v2 < value[(y, x)]:
                                 change = True
                                 value[(y, x)] = v2
