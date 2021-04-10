@@ -23,6 +23,7 @@ class GNB():
         # The following implementation simply extracts the four raw values
         # given by the input data, i.e. s, d, s_dot, and d_dot.
         s, d, s_dot, d_dot = vars
+        
         return s, d, s_dot, d_dot
 
     # Train the GNB using a combination of X and Y, where
@@ -34,6 +35,15 @@ class GNB():
         for each class. Record them for later use in prediction.
         '''
         # TODO: implement code.
+        self.X_arr, self.Y_arr = np.array(X), np.array(Y)
+        unique, cnt = np.unique(Y, return_counts=True)
+        self.priors = cnt / len(Y)
+        
+        self.means = np.array([self.X_arr[np.where(self.Y_arr==i)].mean(axis=0) for i in self.classes])
+        self.stds = np.array([self.X_arr[np.where(self.Y_arr==i)].std(axis=0) for i in self.classes])
+        
+        return self
+            
 
     # Given an observation (s, s_dot, d, d_dot), predict which behaviour
     # the vehicle is going to take using GNB.
@@ -46,5 +56,21 @@ class GNB():
         Return the label for the highest conditional probability.
         '''
         # TODO: implement code.
-        return "keep"
+        probas = np.zeros(len(self.classes))
+        # Calculate Gaussian probability for each variable based on the
+        # mean and standard deviation calculated in the training process.
+        for i in range(len(self.classes)):
+            proba = 1
+            for k in range(self.X_arr.shape[1]):
+                # Multiply all the probabilities for variables, and then
+                # normalize them to get conditional probabilities.
+                proba *= gaussian_prob(observation[k], self.means[i][k], self.stds[i][k])
+#             proba *= self.priors[i]
+            probas[i] = proba
+        res = probas / probas.sum()
+        
+        # Return the label for the highest conditional probability.
+        return self.classes[res.argmax(axis=0)]
+    
+
 
