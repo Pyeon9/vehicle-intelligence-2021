@@ -9,6 +9,7 @@ def main():
 		j = json.load(f)
 	X = j['states']
 	Y = j['labels']
+	X = gnb.process_vars(X)
 	gnb.train(X, Y)
 
 	with open('test.json', 'rb') as f:
@@ -16,6 +17,7 @@ def main():
 
 	X = j['states']
 	Y = j['labels']
+	X = gnb.process_vars(X)
 	score = 0
 	for coords, label in zip(X, Y):
 		predicted = gnb.predict(coords)
