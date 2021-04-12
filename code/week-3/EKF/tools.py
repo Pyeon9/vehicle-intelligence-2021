@@ -22,7 +22,7 @@ def Jacobian(x):
     ])
     return Hj
 
-
+# To make value(num) between lower and upper
 def normalize(num, lower, upper, b=False):
     res = num
     if not b:

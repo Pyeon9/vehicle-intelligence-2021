@@ -15,4 +15,5 @@ def plot_2d(estimations, ground_truth):
     plt.legend()
 
     plt.gcf().canvas.set_window_title('EKF Example')
+    plt.savefig('my_graph.png')
     plt.show()

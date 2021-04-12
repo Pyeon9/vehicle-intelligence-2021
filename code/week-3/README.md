@@ -2,6 +2,20 @@
 
 ---
 
+## Navigation
+
+My `update_ekf()` is implemented in `kalman_filter.py` , `Line 29 ~ 70`.   
+I added `normalize()` function in `tools.py` to make `phi` between -PI and PI.   
+
+I made some annotations with code as my report.   
+
+Below shows my EKF's performance.   
+
+![my_plot](./my_graph.png)
+
+---
+
+
 [//]: # (Image References)
 [kalman-result]: ./kalman_filter/graph.png
 [EKF-results]: ./EKF/plot.png

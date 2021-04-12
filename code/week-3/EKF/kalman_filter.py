@@ -47,7 +47,7 @@ class KalmanFilter:
         S = np.dot(np.dot(H_j, self.P), H_j.T) + self.R  
         K = np.dot(np.dot(self.P, H_j.T), np.linalg.inv(S))
         
-        # 4. Estimate y = z - h(x') 
+        # calculate h(x')
         px, py, vx, vy = self.x
         c1 = (px * px) + (py * py)
         c2 = sqrt(c1)
@@ -57,6 +57,7 @@ class KalmanFilter:
         rho_dot = (px * vx + py * vy) / c2 
         h_of_x = np.array([rho, phi, rho_dot], dtype=np.float32)
         
+        # 4. Estimate y = z - h(x') 
         y = z - h_of_x
         
         # 5. Normalize phi so that it is between -PI and +PI
@@ -67,5 +68,3 @@ class KalmanFilter:
         #    P = (I - K * H_j) * P
         self.x = self.x + np.dot(K, y)
         self.P = self.P - np.dot(np.dot(K, H_j), self.P)
-        
-
