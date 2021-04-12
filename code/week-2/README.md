@@ -5,8 +5,7 @@
 
 ---
 
-// [//]: # (Image References)
-// [plot]: ./markov.gif
+![my_plot](./my_markov.gif)
 
 ## Assignment
 
