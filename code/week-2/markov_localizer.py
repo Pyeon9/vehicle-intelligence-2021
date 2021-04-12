@@ -79,18 +79,18 @@ def observation_model(landmarks, observations, pseudo_ranges, stdev):
     #     sig: squared standard deviation of measurement                       #
     ############################################################################
     
-    # If pseudo_ranges are more than or same to observations, 
-    # can calculate observation probability
+    # If pseudo_ranges are more than or same to the # of observations, 
+    # you can calculate observation probability
     if (len(observations) <= len(pseudo_ranges)):
         # For (observation, pseudo_range) pair, calculate probability
         # and multiply it to observation probability(distance_prob)
-        # As use values from the front in a sorted order,
+        # As using values from the front in a sorted order,
         # the remaining pseudo_range values will be discarded if exist.
         for observation, pseudo_range in zip(observations, pseudo_ranges):
             distance_prob *= norm_pdf(observation, pseudo_range, stdev)
             
-    # If there is no observation(1) or there are more observations than the psuedo ranges(2),
-    # we don't have any probability or can't calculate probability because this observation is not possible
+    # If there is no observation--(1) or there are more observations than the psuedo ranges--(2),
+    # we don't have any probability or can't calculate probabilities because this observation is not possible
     # Therefore, set the distance_prob to 0.0
     else:
         distance_prob = 0.0

@@ -116,6 +116,6 @@ if __name__ == '__main__':
         fig, graph_animator.animate, blit=True, interval=1000, repeat=False,
         frames=len(graph)
     )
-    ani.save('markov.gif', writer='imagemagick', fps=0.5, dpi=100)
+    ani.save('my_markov.gif', writer='imagemagick', fps=1, dpi=100)
     plt.show()
     
