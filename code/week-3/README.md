@@ -11,7 +11,7 @@ I made some annotations with code as my report.
 
 Below shows my EKF's performance.   
 
-![my_plot](./my_graph.png)
+![my_plot](./EKF/my_graph.png)
 
 ---
 
