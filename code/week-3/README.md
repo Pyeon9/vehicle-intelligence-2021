@@ -2,14 +2,31 @@
 
 ---
 
-## Navigation
+## Report
 
-My `update_ekf()` is implemented in `kalman_filter.py` , `Line 29 ~ 70`.   
-I added `normalize()` function in `tools.py` to make `phi` between -PI and PI.   
+### `update_ekf()`
+- `update_ekf()`는 `kalman_filter.py`의 `Line 29 ~ 70`에 구현하였다.   
+- radar measurements를 활용하여 `Extended Kalman Filter`를 update한다.    
 
-I made some annotations with code as my report.   
+- 아래와 같은 순서를 따르며, 반복을 통해 매 time step마다 예측을 갱신한다.   
 
-Below shows my EKF's performance.   
+1. Compute Jacobian Matrix H_j -- `Line 43`   
+   - `tools.py`의 `Jacobian()` 함수를 사용하여 state variable의 Jacobain 행렬을 구한다.  
+2. Calculate S = H_j * P' * H_j^T + R -- `Line 47`  
+   - Kalman Gain K를 계산하기 위해 중간 계산을 수행한다.     
+3. Calculate Kalman gain K = H_j * P' * Hj^T + R -- `Line 48`   
+   - 위에서 구한 값들을 사용하여 Kalman Gain K를 계산한다.   
+4. Estimate y = z - h(x')   -- `Line 51 ~ 61`
+   - measurement 변수 z와 예측한 state variable로부터 구한 measurement 값의 차이를 계산한다.   
+5. Normalize phi so that it is between -PI and +PI -- `Line 64` 
+   - 라디안 각도 phi가 -PI와 +PI 사이의 값을 가지도록 normalize한다.
+   - 이를 위해 `tools.py`에 `normalize()` 함수를 구현하였다. -- `Line 26 @ tools.py`
+6. Calculate new estimates
+   - K, y 및 x를 사용하여 새로운 예측 x를 업데이트한다.
+   - P, K, H_j를 사용하여 새로운 예측 공분산 P를 계산한다.
+
+### Result
+위에서 구현한 `Extended Kalman Filter`의 동작은 아래와 같다.
 
 ![my_plot](./EKF/my_graph.png)
 
