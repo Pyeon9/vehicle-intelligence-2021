@@ -3,10 +3,12 @@
 
 ## Navigation
 
-My `motion_model()` is implemented in `markov_localizer.py` , `Line 41 ~ 62'
-I alse implemented my `observation_model()` at `Line 65 ~ 107'
+My `motion_model()` is implemented in `markov_localizer.py` , `Line 41 ~ 62'   
+I alse implemented my `observation_model()` at `Line 65 ~ 107'   
 
-I made some annotations with code as my report.
+I made some annotations with code as my report.   
+
+Below shows my Markov localizer works well.
 
 ![my_plot](./my_markov.gif)
 
@@ -25,8 +27,6 @@ All the other source files (`main.py` and `helper.py`) should be left as they ar
 
 If you correctly implement the above functions, you expect to see a plot similar to the following:
 
-![Expected Result of Markov Localization][plot]
+![Expected Result of Markov Localization](./markov.gif)
 
 If you run the program (`main.py`) without any modification to the code, it will generate only the frame of the above plot because all probabilities returned by `motion_model()` are zero by default.
-
-![plot](./markov.gif)
