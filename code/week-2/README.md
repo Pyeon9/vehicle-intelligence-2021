@@ -3,9 +3,14 @@
 
 ## Navigation
 
----
+My `motion_model()` is implemented in `markov_localizer.py` , `Line 41 ~ 62'
+I alse implemented my `observation_model()` at `Line 65 ~ 107'
+
+I made some annotations with code as my report.
 
 ![my_plot](./my_markov.gif)
+
+---
 
 ## Assignment
 
