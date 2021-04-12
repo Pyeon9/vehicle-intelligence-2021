@@ -21,7 +21,7 @@
 5. Normalize phi so that it is between -PI and +PI -- `Line 64` 
    - 라디안 각도 phi가 -PI와 +PI 사이의 값을 가지도록 normalize한다.
    - 이를 위해 `tools.py`에 `normalize()` 함수를 구현하였다. -- `Line 26 @ tools.py`
-6. Calculate new estimates
+6. Calculate new estimates -- `Line 69, 70` 
    - K, y 및 x를 사용하여 새로운 예측 x를 업데이트한다.
    - P, K, H_j를 사용하여 새로운 예측 공분산 P를 계산한다.
 
