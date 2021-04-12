@@ -1,12 +1,16 @@
 # Week 2 - Markov Localization
 ---
 
-## Navigation
+## Report
 
-My `motion_model()` is implemented in `markov_localizer.py` , `Line 41 ~ 62`.   
-I also implemented my `observation_model()` at `Line 65 ~ 107`.   
+#### `motion_model()`
+motion model은 `markov_localizer.py`의 `Line 41 ~ 62`에 구현하였다.   
+차량이 이동함에 따라 현재 상태의 위치에 대한 예측을 반환한다.
 
-I made some annotations with code as my report.   
+예측 확률은 `transition probability`와 `prior probability`를 곱하여 계산하는데, `transition probability`는 정규분포를 따른다고 가정한다.   
+map을 벗어나지 않고 직전 위치에서 이동 가능한 위치까지의 거리를 구하고, `helper.py`의 `norm_pdf()` 함수를 사용하여 `transition probability`를 계산한다.   -- `Line 56, 58`   
+이 확률을 `prior probability`와 곱한 값을 모두 더하면 현재 상태의 위치에 대한 예측 확률이 계산된다. -- `Line 60`   
+
 
 Below shows my Markov localizer works well.
 
