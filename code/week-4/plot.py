@@ -35,6 +35,7 @@ def plot_2D(graph):
     )
     _ = animation.FuncAnimation(
         fig, graph_animator.animate, blit=True, interval=50, repeat=False,
-        frames=len(graph)
+        frames=len(graph), save_count=3000
     )
+#     _.save('my_particle_filter.gif', writer='imagemagick', fps=10)
     plt.show()

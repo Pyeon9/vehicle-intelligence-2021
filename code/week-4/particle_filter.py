@@ -111,7 +111,7 @@ class ParticleFilter:
             #    the predicted landmarks and observations; and returns
             #    the list of landmarks by implementing the nearest-neighbour
             #    association algorithm.
-            # 5. Update the particle's weight by the calculated probability.
+            # 4. Update the particle's weight by the calculated probability.
             association_temp = self.associate(visibles,transformed_obs)
             
             for i in association_temp:
@@ -154,7 +154,6 @@ class ParticleFilter:
                 j += 1
         
         resampled_particles.append(self.particles[idx[i]])
-
         self.particles = resampled_particles
 
 
