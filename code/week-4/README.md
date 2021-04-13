@@ -29,7 +29,7 @@ Update the particle's weight by the calculated probability. -- `Line 115 ~ 128`
 ### Result
 위에서 구현한 `Extended Kalman Filter`의 동작은 아래와 같다.
 
-![my_plot](my_particle_filter.gif)
+![my_plot](./my_particle_filter.gif)
 
 
 ---
