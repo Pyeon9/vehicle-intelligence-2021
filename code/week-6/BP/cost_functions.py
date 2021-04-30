@@ -20,8 +20,8 @@ computed by get_helper_data function.
 '''
 
 # weights for costs
-REACH_GOAL = 0
-EFFICIENCY = 0
+REACH_GOAL = 1e+4
+EFFICIENCY = 1e+3
 
 DEBUG = False
 
@@ -32,14 +32,23 @@ def goal_distance_cost(vehicle, trajectory, predictions, data):
     Cost of being out of goal lane also becomes larger as vehicle approaches
     the goal distance.
     '''
-    return 0
+    distance = abs(data.end_distance_to_goal)
+    # 2개 빼니까 2*vehicle.goal_lane
+    cost = 1 - exp(-(abs(2.0*vehicle.goal_lane - data.intended_lane - data.final_lane) / distance))
+    
+    return cost
 
 def inefficiency_cost(vehicle, trajectory, predictions, data):
     '''
     Cost becomes higher for trajectories with intended lane and final lane
     that have slower traffic.
     '''
-    return 0
+    speed_intended = velocity(predictions, data.intended_lane) or vehicle.target_speed
+    speed_final = velocity(predictions, data.final_lane) or vehicle.target_speed
+    
+    cost = (2.0*vehicle.target_speed - speed_intended - speed_final) / vehicle.target_speed
+    
+    return cost
 
 def calculate_cost(vehicle, trajectory, predictions):
     '''
@@ -48,8 +57,8 @@ def calculate_cost(vehicle, trajectory, predictions):
     trajectory_data = get_helper_data(vehicle, trajectory, predictions)
     cost = 0.0
     # list of cost functions and their associated costs
-    cf_list = [goal_distance_cost, inefficiency_cost]
     weight_list = [REACH_GOAL, EFFICIENCY]
+    cf_list = [goal_distance_cost, inefficiency_cost]
 
     for weight, cf in zip(weight_list, cf_list):
         new_cost = weight \
@@ -65,13 +74,13 @@ def calculate_cost(vehicle, trajectory, predictions):
 def get_helper_data(vehicle, trajectory, predictions):
     '''
     Generate helper data to use in cost functions:
-    indended_lane:  +/-1 from the current lane if the vehicle is planning
+    intended_lane:  +/-1 from the current lane if the vehicle is planning
                     or executing a lane change.
     final_lane: The lane of the vehicle at the end of the trajectory.
                 The lane is unchanged for KL and LCL/LCR trajectories.
     distance_to_goal: The s distance of the vehicle to the goal.
 
-    Note that indended_lane and final_lane are both included to help
+    Note that intended_lane and final_lane are both included to help
     differentiate between planning and executing a lane change
     in the cost functions.
     '''
