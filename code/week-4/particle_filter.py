@@ -3,6 +3,8 @@ from helpers import distance
 import math
 import random
 
+from scipy.stats import multivariate_normal
+
 class ParticleFilter:
     def __init__(self, num_particles):
         self.initialized = False
@@ -114,16 +116,12 @@ class ParticleFilter:
             # 4. Update the particle's weight by the calculated probability.
             association_temp = self.associate(visibles,transformed_obs)
             
-            for i in association_temp:
-                normalizer = 1.0 / (2.0 * math.pi * std_landmark_x * std_landmark_y)
+            for i in range(len(association_temp)):                
+#                 p['w'] *= multivariate_normal([association_temp[i]['x'], association_temp[i]['y']],[[std_landmark_x**2, 0], [0, std_landmark_y**2]]).pdf([transformed_obs[i]['x'], transformed_obs[i]['y']])
+                cov = np.cov([association_temp[i]['x'], association_temp[i]['y']], \
+                                                                             [p['x'], p['y']])
                 
-                z = ((p['x']-i['x'])**2) / (std_landmark_x**2) \
-                            + ((p['y']-i['y'])**2) / (std_landmark_y**2) \
-                            - (2 * (p['x']-i['x']) * (p['y']-i['y'])) / (std_landmark_x * std_landmark_y)
-                
-                obs_w = normalizer * math.exp(-0.5 * z)  
-                p['w'] *= obs_w
-                associations.append(i['id'])
+                associations.append(association_temp[i]['id'])
             
             p['assoc'] = associations
 
