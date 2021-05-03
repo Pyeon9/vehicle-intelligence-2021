@@ -36,7 +36,7 @@ init = (4, 3, 0)    # Representing (y, x, o), where
                     # 3: right
                     # Note that this order corresponds to forward above.
 goal = (2, 0)
-cost = (2, 1, 20)   # Cost for each action (right, straight, left)
+cost = (2, 1, 2)   # Cost for each action (right, straight, left)
 
 # EXAMPLE OUTPUT:
 # calling optimum_policy_2D with the given parameters should return
@@ -96,12 +96,12 @@ def optimum_policy_2D(grid, init, goal, cost):
     # sequence of actions to take to follow the optimal path.
     # TODO: implement code.
     y, x, o = init
-    
+
     policy_start = policy[(o, y, x)]
     for i in range(len(action)):
         if policy_start == action[i]:
             policy_name_start = action_name[i]
-        
+
     policy2D[(y, x)] = policy_name_start
     while policy[(o, y, x)] != -999:
         if policy[(o, y, x)] == action[0]:
@@ -110,10 +110,10 @@ def optimum_policy_2D(grid, init, goal, cost):
             o2 = o  # go straight
         elif policy[(o, y, x)] == action[2]:
             o2 = (o + 1) % 4  # turn right
-            
+
         y, x = y + forward[o2][0], x + forward[o2][1]
         o = o2
-        
+
         policy_temp = policy[(o,y,x)]
         if policy_temp == -999:
             policy_name = "*"
@@ -121,9 +121,9 @@ def optimum_policy_2D(grid, init, goal, cost):
             for i in range(len(action)):
                 if policy_temp == action[i]:
                     policy_name = action_name[i]
-            
+
         policy2D[(y,x)] = policy_name 
-        
+
     # Return the optimum policy generated above.
     return policy2D
 
