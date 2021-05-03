@@ -3,9 +3,11 @@
 ---
 
 ## Report
+
 이번 과제는 DP(Dynamic Programming)을 기반으로 경로 탐색 알고리즘을 구현하는 것이다. 차량의 헤딩까지 고려하고, 각 action마다 다른 cost를 가지는 상황에서 최적의 경로를 탐색해야 한다.
 
 큰 틀에서의 코드가 주어져 있고, 중간 중간 핵심적인 알고리즘은 TODO로써 과제로 구현하였다. 순차적으로 알아보면 다음과 같다.
+
 ---
 * Line 72 ~ 76 in `assignment.py`
 ```python
@@ -15,7 +17,7 @@ if (y, x) == goal and value[(t, y, x)] > 0:
     policy[(t, y, x)] = -999
     change = True
 ```
-* for 반복문 내에서 지점을 탐색하다 목적지에 도착하고 (```python if (y, x) == goal```), 그 때의 value 값 (```python value[(t, y, x)])이 유효한 값(>0)이면 value를 0으로 설정하여 목적지의 cost는 0이 되도록 한다.
+* for 반복문 내에서 지점을 탐색하다 목적지에 도착하고 (```if (y, x) == goal```), 그 때의 value 값 (``` value[(t, y, x)]```)이 유효한 값(>0)이면 value를 0으로 설정하여 목적지의 cost는 0이 되도록 한다.
 * 목적지 `policy`에는 무의미한 값인 -999를 주었다.
 * `change`를 True로 설정하여 while 반복문이 계속 돌아갈 수 있도록 한다.
 ---
