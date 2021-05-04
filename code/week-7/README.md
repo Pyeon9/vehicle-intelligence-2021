@@ -7,7 +7,7 @@
 
 ---
 * `heuristic()` : Line 150 ~ 153 in ![hybrid_astar.py](./hybrid_a_star/hybid_astar.py)
-* 이 함수는 A*와 Hybrid A* 알고리즘에서 사용하는 heuristic 함수를 나타낸다.
+* 이 함수는 A'*와 Hybrid A'* 알고리즘에서 사용하는 heuristic 함수를 나타낸다.
 ```python
 def heuristic(self, x, y, goal):
         L1_dist = abs(goal[0]-x) + abs(goal[1]-y)
@@ -96,11 +96,11 @@ while len(opened) > 0:
 ```
 * `opened` list를 f 값으로 정렬하고 `pop()`을 하여 `curr`을 택한다.
 * `curr`이 도착지점이면 `self.final`에 저장하고 `found = True`로 설정 후 break.
-* `curr`과 `goal`을 입력으로 `expand()`하여 다음 상태 `next_states`를 얻음
-* `next_states`에 있는 각 다음 상태들에 대하여 맵 상의 갈 수 있는 지점인지 확인
-* 갈 수 있는 다음 상태에 대하여 장애물 충돌 여부를 확인하고 충돌이 있어 갈 수 없는 지점이면 `possible = False`로 설정
-* `possible`이 True이고 그 지점 및 각도의 `closed`가 0이라면 1로 설정하고 `came_from`에 `curr`을 대입
-* `opened`에 해당 상태를 추가하여 while문 반복 진행
+* `curr`과 `goal`을 입력으로 `expand()`하여 다음 상태 `next_states`를 얻는다.
+* `next_states`에 있는 각 다음 상태들에 대하여 맵 상의 갈 수 있는 지점인지 확인한다.
+* 갈 수 있는 다음 상태에 대하여 장애물 충돌 여부를 확인하고 충돌이 있어 갈 수 없는 지점이면 `possible = False`로 설정한다.
+* `possible`이 True이고 그 지점 및 각도의 `closed`가 0이라면 1로 설정하고 `came_from`에 `curr`을 대입한다.
+* `opened`에 해당 상태를 추가하여 while문 반복 진행한다.
 ---
 ### Result
 아래는 `NUM_THETA_CELLS`와 `speed`를 다르게 했을 때의 실행 결과이다.
