@@ -9,7 +9,7 @@
 큰 틀에서의 코드가 주어져 있고, 중간 중간 핵심적인 알고리즘은 TODO로써 과제로 구현하였다. 순차적으로 알아보면 다음과 같다.
 
 ---
-* Line 72 ~ 76 in ![assignment.py](./assignment.py)
+* Line 72 ~ 76 in [assignment.py](./assignment.py)
 ```python
 if (y, x) == goal and value[(t, y, x)] > 0:
     # TODO: implement code.
@@ -21,7 +21,7 @@ if (y, x) == goal and value[(t, y, x)] > 0:
 * 목적지 `policy`에는 무의미한 값인 -999를 주었다.
 * `change`를 True로 설정하여 while 반복문이 계속 돌아갈 수 있도록 한다.
 ---
-* Line 79 ~ 93 in ![assignment.py](./assignment.py)
+* Line 79 ~ 93 in [assignment.py](./assignment.py)
 ```python
 elif grid[(y, x)] == 0:
     # TODO: implement code.
@@ -47,7 +47,7 @@ elif grid[(y, x)] == 0:
 * `v2`가 기존의 `value` 값보다 낮다면 지금의 행동이 최적이므로, `value` 값을 업데이트 하고 `policy`에는 현재 행동 `a`를 업데이트 한다.
 * `change`를 True로 하여 while 반복문을 다시 진행한다.
 ---
-* Line 98 ~ 128 in ![assignment.py](./assignment.py)
+* Line 98 ~ 128 in [assignment.py](./assignment.py)
 ```python
 y, x, o = init
 
