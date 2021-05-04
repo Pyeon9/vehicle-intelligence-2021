@@ -17,16 +17,6 @@ class GNB():
     # Initialize classification categories
     def __init__(self):
         self.classes = ['left', 'keep', 'right']
-        
-    '''
-    # Given a set of variables, preprocess them for feature engineering.
-    def process_vars(self, vars):
-        # The following implementation simply extracts the four raw values
-        # given by the input data, i.e. s, d, s_dot, and d_dot.
-        s, d, s_dot, d_dot = np.array(vars)
-        
-        return s, d, s_dot, d_dot
-    '''
     
     # Given a set of variables, preprocess them for feature engineering.
     def process_vars(self, X):

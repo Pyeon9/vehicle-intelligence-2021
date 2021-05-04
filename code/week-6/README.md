@@ -1,6 +1,58 @@
 # Week 6 - Prediction & Behaviour Planning
 
 ---
+## Report #1 - Assignment #1
+
+* 과제 1은 `Gaussian Naive Bayes Classifier` (GNB Classifier) 를 구현하는 것이다. 
+* 구현해야 할 함수는 `train(X, Y)`와 `predict(observation)`의 두가지이다. 
+
+### `train(X, Y)` : Line 38~51 in ![./GNB/classifier.py](./GNB/classifier.py)
+```python
+def train(self, X, Y):
+        self.X_arr, self.Y_arr = np.array(X), np.array(Y)
+        unique, cnt = np.unique(Y, return_counts=True)
+        self.priors = cnt / len(Y)
+        
+        self.means = np.array([self.X_arr[np.where(self.Y_arr==i)].mean(axis=0) for i in self.classes])
+        self.stds = np.array([self.X_arr[np.where(self.Y_arr==i)].std(axis=0) for i in self.classes])
+        
+        return self
+```
+* 데이터 X와 라벨 Y를 인자로 받고, `np.unique()` 함수를 사용하여 Y의 고유 값과 개수를 파악한다.
+* Y의 개수를 전체 Y의 개수로 나누어 사전확률 `priors`를 계산한다.
+* `self.classes`에 있는 각 원소에 해당하는 Y index를 찾고, 그 index의 X 값들로 각 class의 평균과 표준편차를 계산한다.
+
+### `train(X, Y)` : Line 56~79 in ![./GNB/classifier.py](./GNB/classifier.py)
+```python
+def predict(self, observation):
+        probas = np.zeros(len(self.classes))
+        # Calculate Gaussian probability for each variable based on the
+        # mean and standard deviation calculated in the training process.
+        for i in range(len(self.classes)):
+            proba = 1
+            for k in range(self.X_arr.shape[1]):
+                # Multiply all the probabilities for variables, and then
+                # normalize them to get conditional probabilities.
+                proba *= gaussian_prob(observation[k], self.means[i][k], self.stds[i][k])
+#             proba *= self.priors[i]
+            probas[i] = proba
+        res = probas / probas.sum()
+        
+        # Return the label for the highest conditional probability.
+        return self.classes[res.argmax(axis=0)]
+```
+* 우선 총 class의 개수에 맞춰 0 행렬 `probas`를 생성한다.
+* 각 class에 대해 observation의 확률을 gaussian으로부터 계산한다.
+* 앞서 계산해두었던 사전확률 `priors`를 곱할 수 있다. 
+	- 성능이 약간 저하되어 주석 처리함. 비교는 아래를 참고
+* 계산한 확률을 총합으로 나누어 정규화한다.
+
+### Result
+* 위: 사전확률 곱하지 않음 / 아래: 사전확률 곱함
+
+![result](./result.png)
+
+---
 
 ## Assignment #1
 
