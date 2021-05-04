@@ -7,7 +7,7 @@
 
 ---
 * `heuristic()` : Line 150 ~ 153 in ![hybrid_astar.py](./hybrid_a_star/hybid_astar.py)
-* 이 함수는 A'*와 Hybrid A'* 알고리즘에서 사용하는 heuristic 함수를 나타낸다.
+* 이 함수는 Hybrid A* 알고리즘에서 사용하는 heuristic 함수를 나타낸다.
 ```python
 def heuristic(self, x, y, goal):
         L1_dist = abs(goal[0]-x) + abs(goal[1]-y)
