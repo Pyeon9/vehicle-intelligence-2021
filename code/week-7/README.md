@@ -106,7 +106,7 @@ while len(opened) > 0:
 아래는 `NUM_THETA_CELLS`와 `speed`를 다르게 했을 때의 실행 결과이다.
 
 * `speed = 0.5`, `NUM_THETA_CELLS = 90`
-![0.5/90](./hybrid_a_star/0.5-90.png = width="640" height="640")
+![0.5/90](./hybrid_a_star/0.5-90.png = width="480" height="480")
 
 * `speed = 1.0`, `NUM_THETA_CELLS = 90`
 ![1.0/90](./hybrid_a_star/1.0-90.png)
