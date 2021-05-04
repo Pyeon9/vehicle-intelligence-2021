@@ -50,7 +50,7 @@ def predict(self, observation):
 ### Result
 * 위: 사전확률 곱하지 않음 / 아래: 사전확률 곱함
 
-![result](./result.png)
+![result](./GNB/result.png)
 
 ---
 
