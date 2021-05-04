@@ -5,8 +5,8 @@
 
 * 과제 1은 `Gaussian Naive Bayes Classifier` (GNB Classifier) 를 구현하는 것이다. 
 * 구현해야 할 함수는 `train(X, Y)`와 `predict(observation)`의 두가지이다. 
-
-### `train(X, Y)` : Line 38~51 in ![./GNB/classifier.py](./GNB/classifier.py)
+---
+* `train(X, Y)` : Line 38~51 in ![./GNB/classifier.py](./GNB/classifier.py)
 ```python
 def train(self, X, Y):
         self.X_arr, self.Y_arr = np.array(X), np.array(Y)
@@ -21,8 +21,8 @@ def train(self, X, Y):
 * 데이터 X와 라벨 Y를 인자로 받고, `np.unique()` 함수를 사용하여 Y의 고유 값과 개수를 파악한다.
 * Y의 개수를 전체 Y의 개수로 나누어 사전확률 `priors`를 계산한다.
 * `self.classes`에 있는 각 원소에 해당하는 Y index를 찾고, 그 index의 X 값들로 각 class의 평균과 표준편차를 계산한다.
-
-### `train(X, Y)` : Line 56~79 in ![./GNB/classifier.py](./GNB/classifier.py)
+---
+* `predict(X, Y)` : Line 56~79 in ![./GNB/classifier.py](./GNB/classifier.py)
 ```python
 def predict(self, observation):
         probas = np.zeros(len(self.classes))
