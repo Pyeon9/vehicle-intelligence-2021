@@ -53,7 +53,73 @@ def predict(self, observation):
 ![result](./GNB/result.png)
 
 ---
+## Report #2 - Assignment #2
 
+### Task 1
+* `choose_next_state(predictions)` : Line 24~68 in ![./BP/vehicle.py](./BP/vehicle.py)
+* 이 함수는 predicted trajectory들을 입력으로 받고 cost function에 따라 최적의 경로를 반환한다.
+* 각 trajectory는 현재 타임스텝과 다음 타임스텝에서의 차량 오브젝트의 list로 구성된다.
+```python
+def choose_next_state(self, predictions):
+        # TODO: implement state transition function based on the cost
+        #          associated with each transition.
+        states = self.successor_states()
+        min_cost = 9999
+        best_traj = None
+        for i in range(len(states)):
+            traj = self.generate_trajectory(states[i], predictions)
+            cost = calculate_cost(self, traj, predictions)
+            if cost < min_cost:
+                min_cost = cost
+                best_traj = traj
+        
+        return best_traj
+```
+* `self.successor_states()` 함수를 사용하여 finite state machine을 기반으로 가능한 다음 상태 `states`를 구한다.
+* `min_cost = 9999`, `best_traj = None`으로 초기 세팅하고, 모든 `states`에 대해 for 문을 돌며 아래를 반복한다.
+* `self.generate_trajectory(state, predictions)` 함수를 통해 경로를 생성한다.
+* `calculate_cost(traj, predictions)` 함수로 해당 경로의 `cost`를 계산한다.
+* `cost`가 `min_cost`보다 낮다면 `min_cost`와 `best_traj`를 갱신한다.
+* 모든 `states`에 대해 반복이 끝나면 `best_traj`를 반환한다. 
+---
+### Task 2
+
+* `goal_distance_cost()`: Line 28~39 in ![./BP/cost_functions.py](./BP/cost_functions.py)
+* 이 함수는 차량의 lane이 `intended lane`과 `final lane`과 차이가 클 수록 큰 cost를 반환해야 한다.
+* 또한, 차량이 목적지에 가까이 다가갈수록 그 차이에 대한 cost는 더 커져야 한다.
+* 아래와 같이 `1 - exp(-x)`의 형태로 cost function을 설계하였다.
+```python
+def goal_distance_cost(vehicle, trajectory, predictions, data):
+    distance = abs(data.end_distance_to_goal)
+    cost = 1 - exp(-(abs(2.0*vehicle.goal_lane - data.intended_lane - data.final_lane) / distance))
+    
+    return cost
+```
+* `abs(2.0*vehicle.goal_lane - data.intended_lane - data.final_lane)`에서 차량의 lane과 `intended lane`, `final lane`의 차이를 exp의 지수로 설정한다.
+* 또한, 이를 목적지까지의 거리인 `distance`로 나누어 목적지에 가까워질수록 더 큰 값을 가지도록 하였다.
+* 참고로, `1 - exp(-x)`의 개형은 아래와 같다.
+
+![1-exp(-x)](./BP/1-exp(-x).png)
+---
+* `inefficiency_cost()`: Line 41~51 in ![./BP/cost_functions.py](./BP/cost_functions.py)
+* 이 함수는 차량의 속도에 따라 cost를 결정하는 함수로, 차량의 속도와  `intended lane`, `final lane`의 속도를 비교하여 느린 속도에 큰 cost를 부여한다.
+```python
+def inefficiency_cost(vehicle, trajectory, predictions, data):
+    speed_intended = velocity(predictions, data.intended_lane) or vehicle.target_speed
+    speed_final = velocity(predictions, data.final_lane) or vehicle.target_speed
+    
+    cost = (2.0*vehicle.target_speed - speed_intended - speed_final) / vehicle.target_speed
+    
+    return cost
+```
+* 차량의 `target_speed`에서 `speed_intended`와 `speed_final`를 뺀 다음 차량의 `target_speed`으로 나누어 정규화 하였다. 
+---
+## Result
+
+* 위의 구현으로 `simulate_behavior.py`를 실행하면 가장 속도가 빠른 lane으로 주행하다 목적지에 가까워질 때 target lane으로 이동하여 목적지에 도달하는 것을 볼 수 있다.
+
+![result](./BP/result.png)
+---
 ## Assignment #1
 
 Under the directory [./GNB](./GNB), you are given two Python modules:
